@@ -1,72 +1,144 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <ClCompile Include="src\ofApp.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ofApp.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.cpp">
-      <Filter>addons\ofxVectorGraphics\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.cpp">
-      <Filter>addons\ofxVectorGraphics\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\particle.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\emitter.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="src">
-      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons">
-      <UniqueIdentifier>{718B490D--FAE-A-47-A7-B-183-65923EEFB5F3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxVectorGraphics">
-      <UniqueIdentifier>{3F2E2345--ECA-B-4A-11-A-134-4FCAE9C4865F}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxVectorGraphics\src">
-      <UniqueIdentifier>{3EE57F01--7A0-1-4A-3A-B-909-0F597F99C5D8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxVectorGraphics\libs">
-      <UniqueIdentifier>{2F737DFF--642-0-4C-E4-B-D10-C5345232E5DD}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\ofApp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ofApp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.h">
-      <Filter>addons\ofxVectorGraphics\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.hpp">
-      <Filter>addons\ofxVectorGraphics\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp">
-      <Filter>addons\ofxVectorGraphics\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="src\emitter.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\particle.h">
-      <Filter>src</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="icon.rc" />
-  </ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\emitter.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\particle.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxButton.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxColorPicker.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxInputField.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxLabel.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxPanel.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.cpp">
+			<Filter>addons\ofxVectorGraphics\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.cpp">
+			<Filter>addons\ofxVectorGraphics\libs</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons">
+			<UniqueIdentifier>{8D05F266--27B-C-48-4B-A-C46-D1C131F14AC5}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGui">
+			<UniqueIdentifier>{8031D0AB--8A5-F-48-CF-A-0BF-33E1814B9BF9}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGui\src">
+			<UniqueIdentifier>{1A0C6D4D--66C-1-4E-51-9-889-1F3993749668}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxVectorGraphics">
+			<UniqueIdentifier>{AE1FE9C2--612-0-4D-9D-A-E30-7BA1A64F13CD}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxVectorGraphics\src">
+			<UniqueIdentifier>{5B8273D5--732-F-44-66-B-DF6-179901D9E46A}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxVectorGraphics\libs">
+			<UniqueIdentifier>{B55B08EE--92C-D-4B-8B-B-9CD-8AAEEA44423E}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\emitter.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\particle.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxColorPicker.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGui.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiUtils.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxInputField.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxLabel.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxPanel.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.h">
+			<Filter>addons\ofxVectorGraphics\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.hpp">
+			<Filter>addons\ofxVectorGraphics\libs</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp">
+			<Filter>addons\ofxVectorGraphics\libs</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
 </Project>

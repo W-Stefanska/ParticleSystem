@@ -61,7 +61,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxVectorGraphics\libs;..\..\..\addons\ofxVectorGraphics\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxGui\src;..\..\..\addons\ofxVectorGraphics\libs;..\..\..\addons\ofxVectorGraphics\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)\Build\%(RelativeDir)\$(Configuration)\</ObjectFileName>
@@ -84,7 +84,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxVectorGraphics\libs;..\..\..\addons\ofxVectorGraphics\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxGui\src;..\..\..\addons\ofxVectorGraphics\libs;..\..\..\addons\ofxVectorGraphics\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ObjectFileName>$(IntDir)\Build\%(RelativeDir)\$(Configuration)\</ObjectFileName>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -104,20 +104,42 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\emitter.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="src\emitter.cpp" />
+    <ClCompile Include="src\particle.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxButton.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxColorPicker.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxInputField.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxLabel.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxPanel.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
     <ClCompile Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.cpp" />
     <ClCompile Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.cpp" />
-    <ClCompile Include="src\particle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\emitter.h" />
     <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="src\emitter.h" />
+    <ClInclude Include="src\particle.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxColorPicker.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxGui.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiUtils.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxInputField.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxLabel.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxPanel.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h" />
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.h" />
     <ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.hpp" />
     <ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp" />
-    <ClInclude Include="src\particle.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
