@@ -26,6 +26,8 @@ void ofApp::setup() {
     gui.add(mL.setup("Maximal lifetime", 200, 150, 1000));
     gui.add(pColor.setup("Color", ofColor(255, 0, 0), ofColor(0, 0, 0), ofColor(255, 255, 255), 200, 20));
     gui.add(up.setup("Up / Down"));
+    gui.add(wind.setup("Wind"));
+    gui.add(gravity.setup("Gravity"));
 
     // USTAW KAMERE
     cam.setNearClip(0.1f);
@@ -42,8 +44,6 @@ void ofApp::setup() {
     light.setDiffuseColor(ofColor(255, 255, 255));
     light.setSpecularColor(ofColor(255, 255, 255));
     ofSetSmoothLighting(true);
-    
-
 }
 
 void ofApp::mlChanged(int& x) { mL.setMin(x); }
@@ -57,7 +57,10 @@ void ofApp::update() {
     emitter1.gen.setter(pS, vS, ml, mL, pColor, up);
     emitter1.update(th);
 
-    sph.setSize(sizep);
+    emitter1.wind(wind);
+    emitter1.gravity(gravity);
+
+    sph.bounce(emitter1.particles);
     emitter1.gen.setUp(up);
 
 }
@@ -71,7 +74,7 @@ void ofApp::draw() {
     light.enable();
     grid(40, 50);
     emitter1.draw();
-    sph.draws(sizep);
+    sph.draws(100);
     
     light.disable();
     ofDisableDepthTest();

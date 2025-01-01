@@ -112,8 +112,26 @@ public:
         }
     }
 
+    void wind(bool isWind) {
+        if (isWind) {
+            for (auto& p : particles) {
+                p.velocity += ofVec3f(10, 0, 0);
+            }
+        }
+    }
+    
+    void gravity(bool isGravity) {
+        if (isGravity) {
+            for (auto& p : particles) {
+                p.velocity += ofVec3f(0, -1, 0);
+            }
+        }
+    }
+    
     particle access(int i) {
         return particles[i];
     }
+
+
 };
 

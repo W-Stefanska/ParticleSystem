@@ -64,7 +64,26 @@ public:
 
     bool check(ofVec3f ppos) const {
         float distance = ppos.distance(pos);
-        return (distance >= size - 30.0f) && (distance <= size + 30);
+        return (distance >= size) || (distance <= size);
+    }
+
+    void bounce(std::vector<particle>& particles) const {
+        for (auto& p : particles) {
+            if (check(p.position)) {
+                ofVec3f r = p.position - pos;
+
+                float distance = r.length();
+
+                if (distance < (size + p.size)) {
+                    ofVec3f normal = r.normalize();
+
+                    p.velocity = p.velocity - 2.0f * normal.dot(p.velocity) * normal;
+
+                    float overlap = (size + p.size) - distance;
+                    p.position += normal * overlap;
+                }
+            }
+        }
     }
 
     void draw() const {

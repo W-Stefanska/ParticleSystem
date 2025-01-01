@@ -23,6 +23,8 @@ public:
     ofxIntSlider ml;
     ofxIntSlider mL;
     ofxToggle up;
+    ofxToggle wind;
+    ofxToggle gravity;
     ofxColorSlider pColor;
     ofParameterGroup params;
     sphere sp;    
