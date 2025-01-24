@@ -13,6 +13,13 @@ public:
     ofEasyCam cam;
 
     emitter emitter1;
+    emitter emitter2;
+    emitter e1;
+    emitter e2;
+    emitter e3;
+    emitter red;
+    emitter baub;
+    emitter snow;
     ofLight light;
     ofColor bg;
 

@@ -19,7 +19,7 @@ public:
             position += velocity;
             float lifeRatio = static_cast<float>(lifeTime) / 100.0f;
             //size = 5.0f + 3.0f * sin(lifeRatio * TWO_PI);
-            size += 0.1;
+            
             kill();
         }
     }
