@@ -2,22 +2,22 @@
 
 #include "ofMain.h"
 
-class particle {
+class Particle {
 public:
     ofVec3f position;
     ofVec3f velocity;
-    float size;
+    float   size;
+    float   lifetime;
+    bool    isAlive;
     ofColor col;
-    int lifeTime;
-    bool isAlive;
 
-    particle() : position(0, 0, 0), velocity(0, 0, 0), size(1.0f), isAlive(false), lifeTime(100) {}
+    Particle() : position(0, 0, 0), velocity(0, 0, 0), size(1.0f), isAlive(false), lifetime(100) {}
 
-    void update() {
+    void update(double dt) {
         if (isAlive) {
-            lifeTime -= 1;
+            lifetime -= 1;
             position += velocity;
-            float lifeRatio = static_cast<float>(lifeTime) / 100.0f;
+            float lifeRatio = static_cast<float>(lifetime) / 100.0f;
             //size = 5.0f + 3.0f * sin(lifeRatio * TWO_PI);
             size += 0.1;
             kill();
@@ -26,8 +26,13 @@ public:
 
     void draw() {
         if (isAlive) {
-            ofSetColor(col);
+            ofMaterial mat;
+            mat.setDiffuseColor(col);
+            mat.setSpecularColor(ofColor(255, 255, 255));
+            mat.setShininess(120);
+            mat.begin();
             ofDrawSphere(position, size);
+            mat.end();
         }
     }
 
@@ -36,13 +41,13 @@ public:
             position = ofVec3f(0, 0, 0);
             velocity = ofVec3f(0, 0, 0);
             size = 1.0f;
-            lifeTime = 10;
+            lifetime = 10;
             isAlive = true;
         }
     }
     
     void kill() {
-        if (lifeTime < 0) {
+        if (lifetime < 0) {
             isAlive = false;
         }
     }
@@ -67,7 +72,7 @@ public:
         return (distance >= size) || (distance <= size);
     }
 
-    void bounce(std::vector<particle>& particles) const {
+    void bounce(std::vector<Particle>& particles) const {
         for (auto& p : particles) {
             if (check(p.position)) {
                 ofVec3f r = p.position - pos;
@@ -87,8 +92,13 @@ public:
     }
 
     void draw() const {
-        ofSetColor(color);
+        ofMaterial mat;
+        mat.setDiffuseColor(color);
+        mat.setSpecularColor(ofColor(255, 255, 255));
+        mat.setShininess(120);
+        mat.begin();
         ofDrawSphere(pos, size);
+        mat.end();
     }
 
     void draws(int size) {

@@ -12,7 +12,7 @@ public:
 
     ofEasyCam cam;
 
-    emitter emitter1;
+    FireEmitter emitter1;
     ofLight light;
     ofColor bg;
 

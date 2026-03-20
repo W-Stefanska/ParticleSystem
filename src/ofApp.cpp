@@ -40,9 +40,10 @@ void ofApp::setup() {
     emitter1.position.set(0, 300, 0);
     
     // USTAW SWIATLO
-    light.setPosition(cam.getPosition() + ofVec3f(0, 0, 20));
-    light.setDiffuseColor(ofColor(255, 255, 255));
-    light.setSpecularColor(ofColor(255, 255, 255));
+    light.setPosition(cam.getPosition() + ofVec3f(200, 200, 200));
+    light.setDiffuseColor(ofColor(255, 200, 100));
+    light.setSpecularColor(ofColor(255, 200, 100));
+	light.setAmbientColor(ofColor(50, 50, 200));
     ofSetSmoothLighting(true);
 }
 
@@ -53,7 +54,7 @@ float th = 0;
 void ofApp::update() {
     float dt = ofGetLastFrameTime();
     th += dt;
-    emitter1.gen.emmiterPosUpd(emitter1.position, 1, th);
+    emitter1.gen.emmiterPosUpd(emitter1.position, 3, th/10, emitter1.spiral(200, 500, 10), emitter1.gen.index);
     emitter1.gen.setter(pS, vS, ml, mL, pColor, up);
     emitter1.update(th);
 
@@ -67,14 +68,12 @@ void ofApp::update() {
 
 void ofApp::draw() {
     ofBackground(bg);
-    
     cam.begin();
     ofEnableDepthTest();
-
     light.enable();
     grid(40, 50);
+
     emitter1.draw();
-    sph.draws(100);
     
     light.disable();
     ofDisableDepthTest();
