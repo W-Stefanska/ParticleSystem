@@ -1,9 +1,10 @@
 #pragma once
 
 #include "ofMain.h"
-#include "emitter.h"
 #include "ofxPanel.h"
 #include <ofxSliderGroup.h>
+#include "emitter.h"
+#include "collider.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -27,8 +28,8 @@ public:
     ofxToggle gravity;
     ofxColorSlider pColor;
     ofParameterGroup params;
-    sphere sp;    
-    sphere sph;
+    Sphere sp;    
+    Sphere sph;
     ofApp() : sp(100, ofColor(100, 100, 255, 50)), sph(100, ofColor(255, 100, 255, 255)) {}
 
     void mlChanged(int &val);
