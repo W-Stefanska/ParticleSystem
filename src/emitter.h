@@ -19,7 +19,7 @@ protected:
 	void spawn(Particle& p) {
 		p.position	= genPosition();
 		p.velocity	= genVelocity();
-		p.col		= genColor();
+		p.color		= genColor();
 		p.size		= genSize();
 		p.lifetime	= genlifetime();
 		p.isAlive	= true;
