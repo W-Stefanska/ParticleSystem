@@ -8,6 +8,7 @@ protected:
 public:
     virtual void resolve(Particle& p)   = 0;
     virtual void draw() const           = 0;
+	virtual void drawSettings(ofxPanel& panel) = 0;
 
     void changeBounceFactor(float f)    { bounceFactor = f; }
     void changePosition(ofVec3f pos)    { position = pos; }

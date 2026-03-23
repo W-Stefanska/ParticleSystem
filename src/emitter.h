@@ -2,6 +2,16 @@
 
 #include "particle.h"
 
+enum class EmitterType {
+	Snow,
+	Fire,
+	Rain,
+	Fountain,
+	Firework,
+	Spiral,
+	Basic
+};
+
 class Emitter {
 protected:
 	std::vector<Particle> particles;
@@ -34,9 +44,12 @@ public:
 	void	setPosition(ofVec3f pos)	{ position = pos; }
 	void	setEmissionRate(float rate) { emissionRate = rate; }
 
-	virtual void draw() { for (auto& p : particles) p.draw(); }
-	Particle& access(int i) { return particles[i]; }
-	void update() {
+	// impl
+	virtual void drawSettings(ofxPanel& panel) = 0;
+	
+	// main
+	void draw()		{ for (auto& p : particles) p.draw(); }
+	void update()	{
 		float dt = static_cast<float>(ofGetLastFrameTime());
 		timeSinceLastEmission += dt;
 
@@ -50,11 +63,13 @@ public:
 	virtual ~Emitter() = default;
 };
 
-class SnowEmitter : public Emitter {};
-class FireEmitter : public Emitter {};
-class RainEmitter : public Emitter {};
-class PathEmitter : public Emitter {};
-
+class SnowEmitter		: public Emitter {};
+class FireEmitter		: public Emitter {};
+class RainEmitter		: public Emitter {};
+class FountainEmitter	: public Emitter {};
+class FireworkEmitter	: public Emitter {};
+class SpiralEmitter		: public Emitter {};
+class BasicEmitter		: public Emitter {};
    
 //    void update(float dt) {
 
