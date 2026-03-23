@@ -3,6 +3,7 @@
 class Particle {
 public:
     ofVec3f     position;
+	ofVec3f     previousPosition;
     ofVec3f     velocity;
     ofColor     color;
     float       size        = 1.f;
@@ -12,6 +13,8 @@ public:
 
     void update(double dt) {
         if (!isAlive) return;
+		previousPosition = position;
+
         lifetime -= dt;
         position += velocity * dt;
         if (behaviour) behaviour(*this, dt);

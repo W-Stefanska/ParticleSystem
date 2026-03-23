@@ -21,9 +21,9 @@ public:
 };
 
 class SphereCollider : public Collider {
-public:
+private:
     float size = 100.f;
-
+public:
     void resolve(Particle& p) override {
         ofVec3f r = p.position - position;
 
@@ -47,5 +47,31 @@ public:
         mat.begin();
         ofDrawSphere(position, size);
         mat.end();
+    }
+};
+
+class PlaneCollider : public Collider {
+private:
+	float   size    = 100.f;
+	ofVec3f normal  = ofVec3f(0, 1, 0);
+public: 
+    void resolve(Particle& p) override {
+        float sideNow = normal.dot(p.position - position);
+        float sidePrev = normal.dot(p.previousPosition - position);
+        
+        if (sidePrev > 0 && sideNow < 0 || sidePrev < 0 && sideNow > 0) {
+            p.position -= normal * sideNow;
+            p.velocity = (p.velocity - 2.0f * normal.dot(p.velocity) * normal) * bounceFactor;
+        }
+    }
+
+    void draw() const override {
+        ofMaterial mat;
+		mat.setDiffuseColor(color);
+		mat.setSpecularColor(ofColor(255, 255, 255));
+		mat.setShininess(120);
+        mat.begin();
+		ofDrawPlane(position, size, size);
+		mat.end();
     }
 };
