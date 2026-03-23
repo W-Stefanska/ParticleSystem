@@ -12,28 +12,8 @@ public:
     int blockMax;
 
     ofEasyCam cam;
-
-    FireEmitter emitter1;
     ofLight light;
     ofColor bg;
-
-    ofxPanel gui;
-    ofxIntSlider sizep;
-    ofxFloatSlider pS;
-    ofxFloatSlider vS;
-    ofxIntSlider ml;
-    ofxIntSlider mL;
-    ofxToggle up;
-    ofxToggle wind;
-    ofxToggle gravity;
-    ofxColorSlider pColor;
-    ofParameterGroup params;
-    Sphere sp;    
-    Sphere sph;
-    ofApp() : sp(100, ofColor(100, 100, 255, 50)), sph(100, ofColor(255, 100, 255, 255)) {}
-
-    void mlChanged(int &val);
-    void mLChanged(int &val);
 
     void setup();
     void update();

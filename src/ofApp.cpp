@@ -15,29 +15,11 @@ void ofApp::setup() {
     ofSetFrameRate(60);
     bg.aliceBlue;
 
-    ml.addListener(this, &ofApp::mlChanged);
-    mL.addListener(this, &ofApp::mLChanged);
-
-    ofSetColor(255);
-    gui.setup();
-    gui.add(pS.setup("Size", 10, 1, 100));
-    gui.add(vS.setup("Size variation", 2, 0, 100));
-    gui.add(ml.setup("Minimal lifetime", 100, 1, 150));
-    gui.add(mL.setup("Maximal lifetime", 200, 150, 1000));
-    gui.add(pColor.setup("Color", ofColor(255, 0, 0), ofColor(0, 0, 0), ofColor(255, 255, 255), 200, 20));
-    gui.add(up.setup("Up / Down"));
-    gui.add(wind.setup("Wind"));
-    gui.add(gravity.setup("Gravity"));
-
     // USTAW KAMERE
     cam.setNearClip(0.1f);
     cam.setFarClip(10000.0f);
     cam.setPosition(0, 0, 1000);
     cam.lookAt(ofVec3f(0, 0, 0));
-
-    // USTAW EMITER
-    emitter1.setup(100);
-    emitter1.position.set(0, 300, 0);
     
     // USTAW SWIATLO
     light.setPosition(cam.getPosition() + ofVec3f(200, 200, 200));
@@ -47,23 +29,10 @@ void ofApp::setup() {
     ofSetSmoothLighting(true);
 }
 
-void ofApp::mlChanged(int& x) { mL.setMin(x); }
-void ofApp::mLChanged(int& x) { ml.setMax(x); }
-
 float th = 0;
 void ofApp::update() {
     float dt = ofGetLastFrameTime();
     th += dt;
-    emitter1.gen.emmiterPosUpd(emitter1.position, 3, th/10, emitter1.spiral(200, 500, 10), emitter1.gen.index);
-    emitter1.gen.setter(pS, vS, ml, mL, pColor, up);
-    emitter1.update(th);
-
-    emitter1.wind(wind);
-    emitter1.gravity(gravity);
-
-    sph.bounce(emitter1.particles);
-    emitter1.gen.setUp(up);
-
 }
 
 void ofApp::draw() {
@@ -72,18 +41,11 @@ void ofApp::draw() {
     ofEnableDepthTest();
     light.enable();
     grid(40, 50);
-
-    emitter1.draw();
     
     light.disable();
     ofDisableDepthTest();
     cam.end();
-    
-    ofSetColor(255);
-    gui.draw();
 }
 
 void ofApp::exit() {
-    ml.removeListener(this, &ofApp::mlChanged);
-    mL.removeListener(this, &ofApp::mLChanged);
 }
