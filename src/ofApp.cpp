@@ -21,7 +21,7 @@ void ofApp::update() {
 
 void ofApp::draw() {
 	scene.begin();
-	col->draw();
+	//col->draw();
 	scene.end();
     manager.draw();
     
