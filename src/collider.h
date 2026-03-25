@@ -1,14 +1,16 @@
 #pragma once
 
+#include "particle.h"
+
 class Collider {
 protected:
     float bounceFactor  = 1.f;
-    ofVec3f position    = ofVec3f();
-    ofColor color       = ofColor();
+    ofVec3f    position = ofVec3f();
+    ofColor    color    = ofColor();
 public:
     virtual void resolve(Particle& p)   = 0;
     virtual void draw() const           = 0;
-	virtual void drawSettings(ofxPanel& panel) = 0;
+	virtual void drawSettings()         = 0;
 
     void changeBounceFactor(float f)    { bounceFactor = f; }
     void changePosition(ofVec3f pos)    { position = pos; }
@@ -23,7 +25,7 @@ public:
 
 class SphereCollider : public Collider {
 private:
-    float size = 100.f;
+    ofParameter<float> size = ofParameter<float>("Size", 100.f);
 public:
     void resolve(Particle& p) override {
         ofVec3f r = p.position - position;
@@ -49,11 +51,16 @@ public:
         ofDrawSphere(position, size);
         mat.end();
     }
+
+    void drawSettings() override {
+        
+    }
 };
 
 class PlaneCollider : public Collider {
 private:
-	float   size    = 100.f;
+    float width  = 100.f;
+    float length = 100.f;
 	ofVec3f normal  = ofVec3f(0, 1, 0);
 public: 
     void resolve(Particle& p) override {
@@ -72,7 +79,11 @@ public:
 		mat.setSpecularColor(ofColor(255, 255, 255));
 		mat.setShininess(120);
         mat.begin();
-		ofDrawPlane(position, size, size);
+		ofDrawPlane(position, width, length);
 		mat.end();
+    }
+
+    void drawSettings() override {
+        
     }
 };

@@ -2,11 +2,15 @@
 #include "ofxPanel.h"
 #include <ofxGui.h>
 
+std::unique_ptr<Collider> col = std::make_unique<SphereCollider>();
+
 void ofApp::setup() {
     ofSetFrameRate(60);
 
 	scene.setup();
-	manager.setup();
+	manager.setup(colliders, emitters);
+
+	
 }
 
 float th = 0;
@@ -16,9 +20,9 @@ void ofApp::update() {
 }
 
 void ofApp::draw() {
-	ofSetDepthTest(true);
-	scene.draw();
-	ofSetDepthTest(false);
+	scene.begin();
+	col->draw();
+	scene.end();
     manager.draw();
     
 }

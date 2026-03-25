@@ -45,7 +45,7 @@ public:
 	void	setEmissionRate(float rate) { emissionRate = rate; }
 
 	// impl
-	virtual void drawSettings(ofxPanel& panel) = 0;
+	virtual void drawSettings() = 0;
 	
 	// main
 	void draw()		{ for (auto& p : particles) p.draw(); }
@@ -63,14 +63,83 @@ public:
 	virtual ~Emitter() = default;
 };
 
-class SnowEmitter		: public Emitter {};
-class FireEmitter		: public Emitter {};
-class RainEmitter		: public Emitter {};
-class FountainEmitter	: public Emitter {};
-class FireworkEmitter	: public Emitter {};
-class SpiralEmitter		: public Emitter {};
-class BasicEmitter		: public Emitter {};
+class SnowEmitter		: public Emitter {
+public:
+	ofVec3f genVelocity() override { return {}; }
+	ofVec3f genPosition() override { return position; }
+	ofColor genColor()    override { return {}; }
+	float   genSize()     override { return 10.f; }
+	float   genlifetime() override { return 1.f; }
+	void    drawSettings() override {}
+};
+class FireEmitter		: public Emitter {
+public:
+	ofVec3f genVelocity() override { return {}; }
+	ofVec3f genPosition() override { return position; }
+	ofColor genColor()    override { return {}; }
+	float   genSize()     override { return 10.f; }
+	float   genlifetime() override { return 1.f; }
+	void    drawSettings() override {}
+};
+class RainEmitter		: public Emitter {
+public:
+	ofVec3f genVelocity() override { return {}; }
+	ofVec3f genPosition() override { return position; }
+	ofColor genColor()    override { return {}; }
+	float   genSize()     override { return 10.f; }
+	float   genlifetime() override { return 1.f; }
+	void    drawSettings() override {}
+};
+class FountainEmitter	: public Emitter {
+public:
+	ofVec3f genVelocity() override { return {}; }
+	ofVec3f genPosition() override { return position; }
+	ofColor genColor()    override { return {}; }
+	float   genSize()     override { return 10.f; }
+	float   genlifetime() override { return 1.f; }
+	void    drawSettings() override {}
+};
+class FireworkEmitter	: public Emitter {
+public:
+	ofVec3f genVelocity() override { return {}; }
+	ofVec3f genPosition() override { return position; }
+	ofColor genColor()    override { return {}; }
+	float   genSize()     override { return 10.f; }
+	float   genlifetime() override { return 1.f; }
+	void    drawSettings() override {}
+};
+class SpiralEmitter		: public Emitter {
+public:
+	ofVec3f genVelocity() override { return {}; }
+	ofVec3f genPosition() override { return position; }
+	ofColor genColor()    override { return {}; }
+	float   genSize()     override { return 10.f; }
+	float   genlifetime() override { return 1.f; }
+	void    drawSettings() override {}
+};
+
+class BasicEmitter : public Emitter {
+public:
+	ofVec3f genVelocity() override { return {}; }
+	ofVec3f genPosition() override { return position; }
+	ofColor genColor()    override { return {}; }
+	float   genSize()     override { return 10.f; }
+	float   genlifetime() override { return 1.f; }
+	void    drawSettings() override {}
+};
    
+//std::unique_ptr<Emitter> createEmitter(EmitterType type) {
+//	switch (type) {
+//	case EmitterType::Snow:     return std::make_unique<SnowEmitter>();
+//	case EmitterType::Fire:     return std::make_unique<FireEmitter>();
+//	case EmitterType::Rain:     return std::make_unique<RainEmitter>();
+//	case EmitterType::Fountain: return std::make_unique<FountainEmitter>();
+//	case EmitterType::Firework: return std::make_unique<FireworkEmitter>();
+//	case EmitterType::Spiral:   return std::make_unique<SpiralEmitter>();
+//	case EmitterType::Basic:    return std::make_unique<BasicEmitter>();
+//	default:                    return std::make_unique<BasicEmitter>();
+//	}
+//}
 //    void update(float dt) {
 
 //        while (timeSinceLastEmission >= 1.0f / emissionRate) {

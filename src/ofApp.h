@@ -10,11 +10,11 @@
 
 class ofApp : public ofBaseApp {
 public:
-    int blockMin;
-    int blockMax;
-
 	Manager manager;
 	Scene scene;
+
+	std::vector<std::unique_ptr<Emitter>> emitters;
+	std::vector<std::unique_ptr<Collider>> colliders;
 
     void setup();
     void update();

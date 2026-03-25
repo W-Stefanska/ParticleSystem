@@ -34,13 +34,16 @@ public:
 		light.setSpecularColor(ofColor(255, 200, 100));
 		light.setAmbientColor(ofColor(50, 50, 200));
 	}
-	void update();
-	void draw() {
+	
+	void begin() {
 		ofBackground(background);
 		camera.begin();
+		ofEnableDepthTest();
 		light.enable();
-		drawGrid();
+	}
+	void end() {
 		light.disable();
+		ofDisableDepthTest();
 		camera.end();
 	}
 };
