@@ -13,6 +13,16 @@ enum class EmitterType {
 	Basic
 };
 
+const std::vector<std::string> emitterTypeNames = {
+	"Snow",
+	"Fire",
+	"Rain",
+	"Fountain",
+	"Firework",
+	"Spiral",
+	"Basic"
+};
+
 class Emitter {
 protected:
 	std::vector<Particle> particles;

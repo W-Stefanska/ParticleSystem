@@ -9,6 +9,12 @@ enum class ColliderType {
     Basic
 };
 
+const std::vector<std::string> colliderTypeNames = {
+    "Sphere",
+    "Plane",
+	"Basic"
+};
+
 class Collider {
 protected:
     float bounceFactor  = 1.f;

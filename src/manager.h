@@ -8,6 +8,8 @@ private:
 	ofxImGui::Gui gui;
 	int emitterCounter = 0;
 	int colliderCounter = 0;
+	int emitterTypeCounters[6] = {0, 0, 0, 0, 0, 0};
+	int colliderTypeCounters[2] = {0, 0};
 
 	std::vector<std::unique_ptr<Collider>>* colliders = nullptr;
 	std::vector<std::unique_ptr<Emitter>>* emitters = nullptr;
@@ -97,9 +99,9 @@ public:
 			if (type != EmitterType::Basic) {
 				for (auto& e : *emitters) {
 					if (e.get() == selectedBasicEmitter) {
-						std::string oldName = e->getName();
+						std::string newName = emitterTypeNames[static_cast<int>(type)];
 						e = createEmitter(type);
-						e->setName(oldName);
+						e->setName(newName + " " + std::to_string(emitterTypeCounters[static_cast<int>(type)]++));
 						selectedEmitter = e.get();
 						selectedBasicEmitter = nullptr;
 						break;
@@ -112,9 +114,9 @@ public:
 			if (type != ColliderType::Basic) {
 				for (auto& c : *colliders) {
 					if (c.get() == selectedBasicCollider) {
-						std::string oldName = c->getName();
+						std::string newName = colliderTypeNames[static_cast<int>(type)];
 						c = createCollider(type);
-						c->setName(oldName);
+						c->setName(newName + " " + std::to_string(colliderTypeCounters[static_cast<int>(type)]++));
 						selectedCollider = c.get();
 						selectedBasicCollider = nullptr;
 						break;
