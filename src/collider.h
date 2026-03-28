@@ -2,6 +2,7 @@
 
 #include "particle.h"
 #include "imgui.h"
+#include "ofApp.h"
 
 enum class ColliderType {
     Sphere,
@@ -78,7 +79,7 @@ public:
 
 class SphereCollider : public Collider {
 private:
-    ofParameter<float> size = ofParameter<float>("Size", 100.f);
+    float size = 100.f;
 public:
     void resolve(Particle& p) override {
         ofVec3f r = p.position - position;
@@ -106,9 +107,13 @@ public:
     }
 
     void drawSettings() override {
-
-        std::cout << "drawSettings invoked" << std::endl;
+        float speed = ImGui::GetIO().KeyShift ? 0.1f : 1.f;
         
+        ImGui::DragFloat("X", &position.x, speed);
+        ImGui::DragFloat("Y", &position.y, speed);
+        ImGui::DragFloat("Z", &position.z, speed);
+
+
     }
 };
 
@@ -139,9 +144,11 @@ public:
     }
 
     void drawSettings() override {
-		ImGui::SliderFloat("Width", &width, 10.f, 500.f);
-		ImGui::SliderFloat("Length", &length, 10.f, 500.f);
-		std::cout << "drawSettings invoked" << std::endl;
+        float speed = ImGui::GetIO().KeyShift ? 0.1f : 1.f;
+
+        ImGui::DragFloat("X", &position.x, speed);
+        ImGui::DragFloat("Y", &position.y, speed);
+        ImGui::DragFloat("Z", &position.z, speed);
     }
 };
 
