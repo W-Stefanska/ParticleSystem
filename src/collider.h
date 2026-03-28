@@ -3,6 +3,7 @@
 #include "particle.h"
 #include "imgui.h"
 #include "ofApp.h"
+#include "imgui_stdlib.h"
 
 enum class ColliderType {
     Sphere,
@@ -101,6 +102,7 @@ public:
         mat.setDiffuseColor(color);
         mat.setSpecularColor(ofColor(255, 255, 255));
         mat.setShininess(120);
+        mat.setEmissiveColor(ofColor(color.r * 0.3, color.g * 0.3, color.b * 0.3));
         mat.begin();
         ofDrawSphere(position, size);
         mat.end();
@@ -108,12 +110,30 @@ public:
 
     void drawSettings() override {
         float speed = ImGui::GetIO().KeyShift ? 0.1f : 1.f;
+        float col[3] = {
+            color.r / 255.f,
+            color.g / 255.f,
+            color.b / 255.f
+        };
+
+        ImGui::InputText("Name", &name);
         
-        ImGui::DragFloat("X", &position.x, speed);
-        ImGui::DragFloat("Y", &position.y, speed);
-        ImGui::DragFloat("Z", &position.z, speed);
+        ImGui::DragFloat("X", &position.x, speed, -FLT_MAX, FLT_MAX);
+        ImGui::DragFloat("Y", &position.y, speed, -FLT_MAX, FLT_MAX);
+        ImGui::DragFloat("Z", &position.z, speed, -FLT_MAX, FLT_MAX);
 
+		ImGui::SliderFloat("Size", &size, 10.f, 500.f);
+        if (ImGui::ColorEdit3("Color", col)) {
+            color.r = col[0] * 255;
+            color.g = col[1] * 255;
+            color.b = col[2] * 255;
+        }
 
+		ImGui::SliderFloat("Bounce Factor", &bounceFactor, 0.f, 2.f);
+
+        if (ImGui::Button("Reset Position")) {
+            position.set(0, 0, 0);
+        }
     }
 };
 
@@ -121,7 +141,19 @@ class PlaneCollider : public Collider {
 private:
     float width  = 100.f;
     float length = 100.f;
-	ofVec3f normal  = ofVec3f(0, 1, 0);
+    ofVec3f rotation = ofVec3f(0, 0, 0);
+    ofVec3f normal = ofVec3f(0, 1, 0);
+
+    void updateNormal() {
+        ofQuaternion q;
+        q.makeRotate(
+            rotation.x, ofVec3f(1, 0, 0),
+            rotation.y, ofVec3f(0, 1, 0),
+            rotation.z, ofVec3f(0, 0, 1)
+        );
+        normal = q * ofVec3f(0, 1, 0);
+        normal.normalize();
+    }
 public: 
     void resolve(Particle& p) override {
         float sideNow = normal.dot(p.position - position);
@@ -135,20 +167,58 @@ public:
 
     void draw() const override {
         ofMaterial mat;
-		mat.setDiffuseColor(color);
-		mat.setSpecularColor(ofColor(255, 255, 255));
-		mat.setShininess(120);
+        mat.setDiffuseColor(color);
+        mat.setShininess(120);
+        mat.setEmissiveColor(ofColor(color.r * 0.5, color.g * 0.5, color.b * 0.5));
         mat.begin();
-		ofDrawPlane(position, width, length);
-		mat.end();
+        ofPushMatrix();
+        ofTranslate(position);
+        ofRotateXDeg(90);
+        ofRotateXDeg(rotation.x);
+        ofRotateYDeg(rotation.y);
+        ofRotateZDeg(rotation.z);
+        ofDrawPlane(0, 0, 0, width, length);
+        ofPopMatrix();
+        mat.end();
     }
 
     void drawSettings() override {
         float speed = ImGui::GetIO().KeyShift ? 0.1f : 1.f;
+        float col[3] = {
+            color.r / 255.f,
+            color.g / 255.f,
+            color.b / 255.f
+        };
 
-        ImGui::DragFloat("X", &position.x, speed);
-        ImGui::DragFloat("Y", &position.y, speed);
-        ImGui::DragFloat("Z", &position.z, speed);
+		ImGui::InputText("Name", &name);
+
+        ImGui::DragFloat("X", &position.x, speed, -FLT_MAX, FLT_MAX);
+        ImGui::DragFloat("Y", &position.y, speed, -FLT_MAX, FLT_MAX);
+        ImGui::DragFloat("Z", &position.z, speed, -FLT_MAX, FLT_MAX);
+
+        if (ImGui::DragFloat3("Rotation", &rotation.x, speed, -180.f, 180.f)) {
+            updateNormal();
+        }
+
+		ImGui::SliderFloat("Width", &width, 10.f, 500.f);
+		ImGui::SliderFloat("Length", &length, 10.f, 500.f);
+
+        if (ImGui::ColorEdit3("Color", col)) {
+            color.r = col[0] * 255;
+            color.g = col[1] * 255;
+            color.b = col[2] * 255;
+        }
+
+        ImGui::SliderFloat("Bounce Factor", &bounceFactor, 0.f, 2.f);
+
+	    if (ImGui::Button("Reset Rotation")) {
+            rotation.set(0, 0, 0);
+            updateNormal();
+		}
+
+        if (ImGui::Button("Reset Position")) {
+            position.set(0, 0, 0);
+		}
     }
 };
 
