@@ -2,7 +2,6 @@
 #include "ofxPanel.h"
 #include <ofxGui.h>
 
-std::unique_ptr<Collider> col = std::make_unique<SphereCollider>();
 
 void ofApp::setup() {
     ofSetFrameRate(60);
@@ -15,13 +14,24 @@ void ofApp::setup() {
 
 float th = 0;
 void ofApp::update() {
+	if (ImGui::GetIO().WantCaptureMouse) {
+		scene.getCamera()->disableMouseInput();
+	}
+	else {
+		scene.getCamera()->enableMouseInput();
+	}
     float dt = ofGetLastFrameTime();
     th += dt;
 }
 
 void ofApp::draw() {
 	scene.begin();
-	//col->draw();
+	for each(auto &collider in colliders) {
+		collider->draw();
+	}
+	for each(auto &emitter in emitters) {
+		emitter->draw();
+	}
 	scene.end();
     manager.draw();
     
