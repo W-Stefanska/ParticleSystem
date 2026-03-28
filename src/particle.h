@@ -8,6 +8,9 @@ public:
     ofColor     color;
     float       size        = 1.f;
     float       lifetime    = 1.f;
+    float       bounceMult = 1.f;
+    float       friction = 1.f;
+    bool        dieOnHit = false;
     bool        isAlive     = false;
     std::function<void(Particle&, float)> behaviour;
 

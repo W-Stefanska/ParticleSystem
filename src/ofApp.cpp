@@ -20,6 +20,9 @@ void ofApp::update() {
 	else {
 		scene.getCamera()->enableMouseInput();
 	}
+	for each(auto& emitter in emitters) {
+		emitter->update();
+	}
     float dt = ofGetLastFrameTime();
     th += dt;
 }

@@ -2,6 +2,7 @@
 
 #include "particle.h"
 #include "imgui.h"
+#include "imgui_stdlib.h"
 
 enum class EmitterType {
 	Snow,
@@ -39,7 +40,7 @@ protected:
 	virtual float	genSize		() = 0;
 	virtual float	genlifetime	() = 0;
 
-	void spawn(Particle& p) {
+	virtual void spawn(Particle& p) {
 		p.position	= genPosition();
 		p.velocity	= genVelocity();
 		p.color		= genColor();
@@ -70,6 +71,16 @@ public:
 		float dt = static_cast<float>(ofGetLastFrameTime());
 		timeSinceLastEmission += dt;
 
+		while (timeSinceLastEmission >= 1.0f / emissionRate) {
+			for (auto& p : particles) {
+				if (!p.isAlive) {
+					spawn(p);
+					break;
+				}
+			}
+			timeSinceLastEmission -= 1.0f / emissionRate;
+		}
+
 		for (auto& p : particles) p.update(dt);
 	}
 
@@ -98,14 +109,50 @@ public:
 	float   genlifetime() override { return 1.f; }
 	void    drawSettings() override {}
 };
-class RainEmitter		: public Emitter {
+class RainEmitter : public Emitter {
+	float wind = 200.f;
+	float lifetime = 2.f;
+	float size = 5.f;
+	float velocity = -1000.f;
+	float emissionRate = 100.f;
 public:
-	ofVec3f genVelocity() override { return {}; }
-	ofVec3f genPosition() override { return position; }
-	ofColor genColor()    override { return {}; }
-	float   genSize()     override { return 10.f; }
-	float   genlifetime() override { return 1.f; }
-	void    drawSettings() override {}
+	RainEmitter() : Emitter() {
+		position.y = 500.f;
+		particles.resize(500);
+	}
+	ofVec3f genVelocity() override { return ofVec3f(wind, velocity, 0); }
+	ofVec3f genPosition() override { 
+		return ofVec3f(
+			ofRandom(position.x - 1000, position.x + 1000),
+			position.y,
+			ofRandom(position.z - 1000, position.z + 1000)
+		);
+	}
+	ofColor genColor()  override { return ofColor(140, 140, 200); }
+	float genSize()     override { return size; }
+	float genlifetime() override { return lifetime; }
+
+	void spawn(Particle& p) override {
+		Emitter::spawn(p);
+		p.dieOnHit = true;
+		p.bounceMult = 0.f;
+	}
+
+	void drawSettings() override {
+		ImGui::InputText("Name", &name);
+
+		ImGui::DragFloat("X", &position.x, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Y", &position.y, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Z", &position.z, 1.f, -FLT_MAX, FLT_MAX);
+
+		ImGui::DragFloat("Wind", &wind, 1.f, -FLT_MAX, FLT_MAX);
+
+		ImGui::DragFloat("Emission Rate", &emissionRate, 1.f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Lifetime", &lifetime, 1.f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Size", &size, 0.1f, 0.1f, FLT_MAX);
+
+		ImGui::DragFloat("Velocity", &velocity, 1.f, -FLT_MAX, FLT_MAX);
+	}
 };
 class FountainEmitter	: public Emitter {
 public:
@@ -184,24 +231,3 @@ std::unique_ptr<Emitter> createEmitter(EmitterType type) {
 	default:                    return std::make_unique<BasicEmitter>();
 	}
 }
-
-//    void update(float dt) {
-
-//        while (timeSinceLastEmission >= 1.0f / emissionRate) {
-//            bool emitted = false;
-//            for (auto& p : particles) {
-//                if (!p.isAlive) {
-//                    p.reset(gen.generatePosition(position), gen.generateColor());
-//                    p.velocity = gen.generateVelocity();
-//                    p.size = gen.generateSize();
-//                    p.lifetime = gen.generatelifetime();
-//                    p.col = gen.generateColor();
-//                    emitted = true;
-//                    break;
-//                }
-//            }
-//            if (!emitted) break;
-//            timeSinceLastEmission -= 1.0f / emissionRate;
-//        }
-
-//    }
