@@ -91,14 +91,55 @@ public:
 	virtual ~Emitter() = default;
 };
 
-class SnowEmitter		: public Emitter {
+class SnowEmitter : public Emitter {
+	float windX = 50.f;
+	float windZ = 20.f;
+	float lifetime = 8.f;
+	float size = 8.f;
+	float velocity = -80.f;
+	float spread = 1000.f;
 public:
-	ofVec3f genVelocity() override { return {}; }
-	ofVec3f genPosition() override { return position; }
-	ofColor genColor()    override { return {}; }
-	float   genSize()     override { return 10.f; }
-	float   genlifetime() override { return 1.f; }
-	void    drawSettings() override {}
+	SnowEmitter() : Emitter() {
+		position.y = 500.f;
+		particles.resize(500);
+	}
+	ofVec3f genVelocity() override {
+		return ofVec3f(
+			windX + ofRandom(-20, 20),
+			velocity + ofRandom(-20, 20),
+			windZ + ofRandom(-20, 20)
+		);
+	}
+	ofVec3f genPosition() override {
+		return ofVec3f(
+			ofRandom(position.x - spread, position.x + spread),
+			position.y,
+			ofRandom(position.z - spread, position.z + spread)
+		);
+	}
+	ofColor genColor() override {
+		return ofColor(240, 240, 255);
+	}
+	float genSize()     override { return size + ofRandom(-2, 2); }
+	float genlifetime() override { return lifetime + ofRandom(-1, 1); }
+	void spawn(Particle& p) override {
+		Emitter::spawn(p);
+		p.dieOnHit = false;
+		p.bounceMult = 0.f;
+		p.friction = 0.f;
+	}
+	void drawSettings() override {
+		ImGui::InputText("Name", &name);
+		ImGui::DragFloat("X", &position.x, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Y", &position.y, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Z", &position.z, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Wind X", &windX, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Wind Z", &windZ, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Spread", &spread, 1.f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Velocity", &velocity, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Lifetime", &lifetime, 0.1f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Size", &size, 0.1f, 0.1f, FLT_MAX);
+	}
 };
 class FireEmitter		: public Emitter {
 public:
