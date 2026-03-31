@@ -142,13 +142,38 @@ public:
 	}
 };
 class FireEmitter		: public Emitter {
+	float velocity = 150.f;
+	float lifetime = 1.f;
+	float size = 10.f;
+	float spread = 25.f;
 public:
-	ofVec3f genVelocity() override { return {}; }
-	ofVec3f genPosition() override { return position; }
-	ofColor genColor()    override { return {}; }
-	float   genSize()     override { return 10.f; }
-	float   genlifetime() override { return 1.f; }
-	void    drawSettings() override {}
+	FireEmitter() : Emitter() {
+		particles.resize(500);
+	}
+	ofVec3f genVelocity() override { return ofVec3f(0, velocity, 0); }
+	ofVec3f genPosition() override { 
+		return ofVec3f(
+			position.x + ofRandom(-spread, spread),
+			position.y,
+			position.z + ofRandom(-spread, spread)
+		);
+	}
+	ofColor genColor()    override { return ofColor(255, 100, 20); }
+	float   genSize()     override { return size; }
+	float   genlifetime() override { return ofRandom(lifetime, lifetime * 1.5f); }
+	void    drawSettings() override {
+		ImGui::InputText("Name", &name);
+
+		ImGui::DragFloat("X", &position.x, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Y", &position.y, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Z", &position.z, 1.f, -FLT_MAX, FLT_MAX);
+
+		ImGui::DragFloat("Velocity", &velocity, 1.f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Spread", &spread, 0.1f, 0.f, FLT_MAX);
+
+		ImGui::DragFloat("Lifetime", &lifetime, 0.1f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Size", &size, 0.1f, 0.1f, FLT_MAX);
+	}
 };
 class RainEmitter : public Emitter {
 	float wind = 200.f;
