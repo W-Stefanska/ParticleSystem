@@ -195,14 +195,54 @@ public:
 		ImGui::DragFloat("Velocity", &velocity, 1.f, -FLT_MAX, FLT_MAX);
 	}
 };
-class FountainEmitter	: public Emitter {
+class FountainEmitter : public Emitter {
+	float vy = 1000.f;
+	float speed = 100.f;
+	float lifetime = 5.f;
+	float size = 10.f;
+	float spread = 10.f;
 public:
-	ofVec3f genVelocity() override { return {}; }
-	ofVec3f genPosition() override { return position; }
-	ofColor genColor()    override { return {}; }
-	float   genSize()     override { return 10.f; }
-	float   genlifetime() override { return 1.f; }
-	void    drawSettings() override {}
+	FountainEmitter() : Emitter() {
+		particles.resize(500);
+	}
+	ofVec3f genVelocity() override {
+		float angle = ofRandom(0, TWO_PI);
+		float vx = cos(angle) * speed;
+		float vz = sin(angle) * speed;
+		return ofVec3f(vx, vy, vz);
+	}
+	ofVec3f genPosition() override {
+		return ofVec3f(
+			position.x + ofRandom(-spread, spread),
+			position.y,
+			position.z + ofRandom(-spread, spread)
+		);
+	}
+	ofColor genColor() override {
+		float t = ofRandom(0, 1);
+		return ofColor(50, 100 + t * 100, 255);
+	}
+	float genSize()     override { return size + ofRandom(-2, 2); }
+	float genlifetime() override { return lifetime + ofRandom(-0.5, 0.5); }
+	void spawn(Particle& p) override {
+		Emitter::spawn(p);
+		p.bounceMult = 0.6f;
+		p.friction = 0.8f;
+	}
+	void drawSettings() override {
+		ImGui::InputText("Name", &name);
+
+		ImGui::DragFloat("X", &position.x, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Y", &position.y, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Z", &position.z, 1.f, -FLT_MAX, FLT_MAX);
+
+		ImGui::DragFloat("Velocity", &vy, 1.f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Spread speed", &speed, 1.f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Spawn spread", &spread, 0.1f, 0.f, FLT_MAX);
+
+		ImGui::DragFloat("Lifetime", &lifetime, 0.1f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Size", &size, 0.1f, 0.1f, FLT_MAX);
+	}
 };
 class FireworkEmitter	: public Emitter {
 public:
