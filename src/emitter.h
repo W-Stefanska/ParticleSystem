@@ -11,6 +11,7 @@ enum class EmitterType {
 	Fountain,
 	Firework,
 	Spiral,
+	Ball,
 	Basic
 };
 
@@ -21,6 +22,7 @@ const std::vector<std::string> emitterTypeNames = {
 	"Fountain",
 	"Firework",
 	"Spiral",
+	"Ball",
 	"Basic"
 };
 
@@ -287,6 +289,32 @@ public:
 	float   genlifetime() override { return 1.f; }
 	void    drawSettings() override {}
 };
+class BallEmitter		: public Emitter {
+	float lifetime = 5.f;
+	float velocity = -300.f;
+	float size = 100.f;
+public:
+	BallEmitter() : Emitter() {
+		emissionRate = 1.f;
+	}
+	ofVec3f genVelocity() override { return ofVec3f(0, velocity, 0); }
+	ofVec3f genPosition() override { return position; }
+	ofColor genColor()    override { return ofColor(255, 0, 0); }
+	float   genSize()     override { return size; }
+	float   genlifetime() override { return lifetime; }
+	void    drawSettings() override {
+		ImGui::InputText("Name", &name);
+
+		ImGui::DragFloat("X", &position.x, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Y", &position.y, 1.f, -FLT_MAX, FLT_MAX);
+		ImGui::DragFloat("Z", &position.z, 1.f, -FLT_MAX, FLT_MAX);
+
+		ImGui::DragFloat("Velocity", &velocity, 1.f, -FLT_MAX, FLT_MAX);
+
+		ImGui::DragFloat("Lifetime", &lifetime, 0.1f, 0.f, FLT_MAX);
+		ImGui::DragFloat("Size", &size, 0.1f, 0.1f, FLT_MAX);
+	}
+};
 
 class BasicEmitter : public Emitter {
 public:
@@ -320,6 +348,9 @@ public:
 			if (ImGui::Selectable("Spiral")) {
 				type = EmitterType::Spiral;
 			}
+			if (ImGui::Selectable("Ball")) {
+				type = EmitterType::Ball;
+			}
 		}
 		return type;
 	}
@@ -333,6 +364,7 @@ std::unique_ptr<Emitter> createEmitter(EmitterType type) {
 	case EmitterType::Fountain: return std::make_unique<FountainEmitter>();
 	case EmitterType::Firework: return std::make_unique<FireworkEmitter>();
 	case EmitterType::Spiral:   return std::make_unique<SpiralEmitter>();
+	case EmitterType::Ball:		return std::make_unique<BallEmitter>();
 	case EmitterType::Basic:    return std::make_unique<BasicEmitter>();
 	default:                    return std::make_unique<BasicEmitter>();
 	}

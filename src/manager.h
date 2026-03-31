@@ -8,7 +8,7 @@ private:
 	ofxImGui::Gui gui;
 	int emitterCounter = 0;
 	int colliderCounter = 0;
-	int emitterTypeCounters[6] = {0, 0, 0, 0, 0, 0};
+	int emitterTypeCounters[7] = {0, 0, 0, 0, 0, 0, 0};
 	int colliderTypeCounters[2] = {0, 0};
 
 	std::vector<std::unique_ptr<Collider>>* colliders = nullptr;
